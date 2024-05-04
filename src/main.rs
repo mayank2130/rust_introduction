@@ -165,24 +165,86 @@
 //     println!("{}",is_lt_5);
 // }
 
-struct Temperature {
-    degrees_f: f64,
+// struct Temperature {
+//     degrees_f: f64,
+// }
+
+// impl Temperature {
+//     fn freezing() -> Self {
+//         Self { degrees_f: 12.0 }
+//     }
+
+//     fn show_temp(&self) {
+//         println!("{:?}", self.degrees_f);
+//     }
+// }
+
+// fn main() {
+//     let hot = Temperature { degrees_f: 37.2 };
+//     hot.show_temp();
+
+//     let cold = Temperature::freezing();
+//     cold.show_temp();
+// }
+
+
+enum Color {
+    Red,
+    Blue,
 }
 
-impl Temperature {
-    fn freezing() -> Self {
-        Self { degrees_f: 12.0 }
+impl Color {
+    fn print(&self) {
+        match self {
+            Color::Red => println!("Red"),
+            Color::Blue => println!("Blue"),
+        }
+    }
+}
+
+struct Dimensions {
+    width: f64,
+    height: f64,
+    depth: f64,
+}
+
+impl Dimensions{
+    fn print(&self) {
+        println!("Width : {:?}", self.width);
+        println!("Height : {:?}", self.height);
+        println!("Depth : {:?}", self.depth);
+    }
+}
+
+
+struct ShippingBox {
+    color: Color,
+    weight: f64,
+    dimensions: Dimensions,
+}
+
+impl ShippingBox {
+    fn new(weight: f64, color: Color, dimensions: Dimensions) -> Self {
+        Self {
+            color,
+            weight,
+            dimensions,
+        }
     }
 
-    fn show_temp(&self) {
-        println!("{:?}", self.degrees_f);
+    fn print(&self) {
+        self.color.print();
+        self.dimensions.print();
+        println!("Weight: {:?}", self.weight)
     }
 }
 
 fn main() {
-    let hot = Temperature { degrees_f: 37.2 };
-    hot.show_temp();
-
-    let cold = Temperature::freezing();
-    cold.show_temp();
+    let small_dimensions = Dimensions {
+        width: 2.0,
+        height: 5.0,
+        depth: 4.0,
+    };
+    let small_box = ShippingBox::new(5.0, Color::Blue, small_dimensions);
+    small_box.print();
 }
